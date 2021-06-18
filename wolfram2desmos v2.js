@@ -53,10 +53,11 @@ function wolfram2desmos(input) {
 
 	// returns the last match's index (requires global expr)
 	function findFinal(expr) {
-		let recent = -1;
-		while ((match = expr.exec(input)) != null) {
-			recent = match.index;
+		let recent = [...input.matchAll(expr)];
+		if (recent[recent.length - 1] != undefined) {
+			return recent[recent.length - 1].index;
 		}
+		recent = -1;
 		return recent;
 	}
 
