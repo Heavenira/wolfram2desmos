@@ -114,7 +114,7 @@ function wolfram2desmos(input) {
 
 	// PREPARATIONS
 	// predefine some variables.
-	let i, bracket, startingIndex, selection, temp, isLogarithm;
+	let i, bracket, startingIndex, selection, temp;
 	let functionSymbols = /^[a-wΑ-ωⒶ-ⓏＡ-Ｚ⒜-⒵√%][\(\_\^]/gi;
 	input = " " + input + " "; // this gives some breathing space
 
@@ -371,7 +371,6 @@ function wolfram2desmos(input) {
 	}
 	replace(/╱/g, "/");
 	replace(/⁒/g, "%");
-
 	// OFFICIAL BRACKET CHECKPOINT REACHED
 
 	// BEGIN LATEX FORMATTING
@@ -382,7 +381,6 @@ function wolfram2desmos(input) {
 		i = startingIndex;
 		overwrite(i, "‹");
 		bracket = -1;
-		isLogarithm = (input[i - 2] == "Ⓩ");
 		while (i < input.length) {
 			i++;
 			bracketEval();
@@ -396,9 +394,8 @@ function wolfram2desmos(input) {
 			continue;
 		}
 		else {
-			temp = "\\^" + selection.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+			input = input.slice(0, startingIndex - 1) + input.slice(i + 1, input.length);
 			i = startingIndex - 2;
-			replace(new RegExp(temp, ""), "");
 			insert(i, "(");
 			bracket = -1;
 			while (i < input.length) {
