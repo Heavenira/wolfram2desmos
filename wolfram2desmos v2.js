@@ -221,7 +221,7 @@ function wolfram2desmos(input) {
 
 	// dead space removal
 	replace(/(?<=[\/\^\_\√∛%])\s*/g, "");
-	replace(/\s*(?=[\/\^\_\√∛%])/g, "");
+	replace(/\s*(?=[\/\^\_%])/g, "");
 
 	// trail removal
 	replace(/\sfor(?!.*\sfor).*/g, "");
