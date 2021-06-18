@@ -1,6 +1,6 @@
 // FLAG VARIABLES
 let reciprocalExponents2Surds = false; //converts ^(1/#) to surd
-let derivativeLoopLimit = 3; // converts (d^#/dx^#) to (d/dx)... # times. 0=disabled
+let derivativeLoopLimit = true; // converts (d^#/dx^#) to (d/dx)... # times, bottlenecked to 10 iterations
 
 // IMPORTANT
 // isIllegalASCIIMath() is REQUIRED BEFORE executing wolfram2desmos()
@@ -676,7 +676,7 @@ function wolfram2desmos(input) {
 		}
 		if (selection.search(/[^\d]*/g) != -1) {
 			selection = parseInt(selection);
-			if (selection <= derivativeLoopLimit) {
+			if (selection <= 10 && derivativeLoopLimit) {
 				replace(/Ｍ/, "");
 				for (i = 0; i < selection; i++) {
 					insert(startingIndex, "\\frac{d}{dx}");
