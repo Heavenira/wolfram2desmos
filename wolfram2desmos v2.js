@@ -270,13 +270,13 @@ function wolfram2desmos(input) {
 		i = findFinal(/[\/\^\_\√∛%](?!\()/g) + 1;
 		insert(i, "(");
 		temp = input.slice(i - 2, i);
-		temp = (temp.search(functionSymbols) != -1 || temp[0] == ")");
+		temp = (temp.search(functionSymbols) != -1);
 		bracket = -1;
 		selection = input.slice(i + 1, input.length);
 		if (selection[0] == "+" || selection[0] == "-" || selection[0] == "±") {
 			i += 1;
 		}
-		if (selection.search(functionSymbols) == 0 && input[selection.search	(functionSymbols) + 1] == "(") {
+		if (selection.search(functionSymbols) == 0 && input[selection.search(functionSymbols) + 1] == "(") {
 			i += 1;
 			bracket -= 1;
 		}
@@ -353,7 +353,7 @@ function wolfram2desmos(input) {
 				}
 			}
 		}
-
+		
 		// preceded WITHOUT a ")" scenario
 		if (input[i] != ")" || temp) {
 			insert(startingIndex, ")");
@@ -374,7 +374,6 @@ function wolfram2desmos(input) {
 	// OFFICIAL BRACKET CHECKPOINT REACHED
 
 	// BEGIN LATEX FORMATTING
-
 	// implement function exponents
 	while (find(/(?<=[Ⓐ-Ⓩ]\^)\(/) != -1) {
 		startingIndex = find(/(?<=[Ⓐ-Ⓩ]\^)\(/);
@@ -395,13 +394,13 @@ function wolfram2desmos(input) {
 		}
 		else {
 			input = input.slice(0, startingIndex - 1) + input.slice(i + 1, input.length);
-			i = startingIndex - 2;
+			i = startingIndex;
 			insert(i, "(");
-			bracket = -1;
+			bracket = -2;
 			while (i < input.length) {
 				i++;
 				bracketEval();
-				if (input[i] == " " && bracket == -1) {
+				if (bracket == -1) {
 					insert(i, ")")
 					insert(i + 1, "^" + selection);
 					break;
@@ -729,4 +728,4 @@ function wolfram2desmos(input) {
 }
 
 // Always love to have my signature :)
-console.log("wolfram2desmos loaded properly ✔️\n_   _ _____ ___  _   _ _____ _   _ ___________  ___  \n| | | |  ___/ _ \\| | | |  ___| \\ | |_   _| ___ \\/ _ \\ \n| |_| | |__/ /_\\ | | | | |__ |  \\| | | | | |_/ / /_\\ \\\n|  _  |  __|  _  | | | |  __|| . ` | | | |    /|  _  |\n| | | | |__| | | \\ \\_/ | |___| |\\  |_| |_| |\\ \\| | | |\n\\_| |_\\____\\_| |_/\\___/\\____/\\_| \\_/\\___/\\_| \\_\\_| |_/");
+//console.log("wolfram2desmos loaded properly ✔️\n_   _ _____ ___  _   _ _____ _   _ ___________  ___  \n| | | |  ___/ _ \\| | | |  ___| \\ | |_   _| ___ \\/ _ \\ \n| |_| | |__/ /_\\ | | | | |__ |  \\| | | | | |_/ / /_\\ \\\n|  _  |  __|  _  | | | |  __|| . ` | | | |    /|  _  |\n| | | | |__| | | \\ \\_/ | |___| |\\  |_| |_| |\\ \\| | | |\n\\_| |_\\____\\_| |_/\\___/\\____/\\_| \\_/\\___/\\_| \\_\\_| |_/");
