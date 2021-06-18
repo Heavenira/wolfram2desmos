@@ -38,7 +38,7 @@ function isIllegalASCIIMath(input) {
 	if (count(/\|/g) % 2 == 1) {
 		console.warn("Input has uneven '|' brackets");
 		return true;
-
+	}
 	return false;
 }
 
