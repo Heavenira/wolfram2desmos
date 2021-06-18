@@ -19,7 +19,7 @@ function isIllegalASCIIMath(input) {
 	}
 
 	// checks for illegal characters
-	if (input.search(/\\/ != -1)) {
+	if (input.search(/\\/) != -1) {
 		return true;
 	}
 	if (input.search(/\n/) != -1) {
