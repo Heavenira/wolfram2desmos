@@ -23,7 +23,7 @@ function isIllegalASCIIMath(input) {
 		return true;
 	}
 	if (input.search(/\n/) != -1) {
-		console.warn("Newline detected")
+		console.warn("Newline detected");
 		return true;
 	}
 
