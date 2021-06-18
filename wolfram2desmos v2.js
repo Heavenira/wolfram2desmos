@@ -1,5 +1,6 @@
 // FLAG VARIABLES
-let reciprocalExponents2Surds = false;
+let reciprocalExponents2Surds = false; //converts ^(1/#) to surd
+let derivativeLoopLimit = 3; // converts (d^#/dx^#) to (d/dx)... # times. 0=disabled
 
 // IMPORTANT
 // isIllegalASCIIMath() is REQUIRED BEFORE executing wolfram2desmos()
@@ -22,7 +23,7 @@ function isIllegalASCIIMath(input) {
 		return true;
 	}
 	if (input.search(/\n/) != -1) {
-		console.warn("Newline detected");
+		console.warn("Newline detected")
 		return true;
 	}
 
@@ -104,6 +105,7 @@ function wolfram2desmos(input) {
 	function isOperator1(x) {
 		return ["+", "-", "±", "*", "=", "≥", "≤", "≠", "→", "/", "%"].includes(input[x]);
 	}
+
 	function isOperator2(x) {
 		return ["^", "_"].includes(input[x]);
 	}
@@ -112,7 +114,7 @@ function wolfram2desmos(input) {
 	// PREPARATIONS
 	// predefine some variables.
 	let i, bracket, startingIndex, selection, temp;
-	let functionSymbols = /^[a-zΑ-ωⒶ-ⓏＡ-Ｚ⒜-⒵√%][\(\_\^]/gi;
+	let functionSymbols = /^[a-wΑ-ωⒶ-ⓏＡ-Ｚ⒜-⒵√%][\(\_\^]/gi;
 	input = " " + input + " "; // this gives some breathing space
 
 	// symbol replacements
@@ -201,6 +203,18 @@ function wolfram2desmos(input) {
 	replace(/(?<![A-Z|a-z|Α-ω])round(?![A-Z|a-z|Α-ω])/g, "Ｊ");
 	replace(/(?<![A-Z|a-z|Α-ω])(gcd|gcf)(?![A-Z|a-z|Α-ω])/g, "Ｋ");
 	replace(/(?<![A-Z|a-z|Α-ω])lcm(?![A-Z|a-z|Α-ω])/g, "Ｌ");
+	while (find(/d(\^\d*)*\/dx(\^\d*)*/) != -1) {
+		i = find(/d(\^\d*)*\/dx(\^\d*)*/);
+		selection = input.match(/(?<=\^)(\d*)/);
+		replace(/d(\^\d*)*\/dx(\^\d*)*/, "");
+		insert(i, "Ｍ");
+		if (selection == null) {
+		}
+		else {
+			insert(i + 1, "^(" + selection[0] + ")")
+		}
+		break;
+	}
 
 	// unused: ⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵
 
@@ -248,7 +262,6 @@ function wolfram2desmos(input) {
 	replace(/(?<![A-Z|a-z|Α-ω])Omega/g, "Ω");
 	replace(/(?<![A-Z|a-z|Α-ω])omega/g, "ω");
 	replace(/(?<![A-Z|a-z|Α-ω])constant/g, "C");
-
 
 	// MISSING BRACKETS
 	// this will ensure brackets AFTER each operator
@@ -298,10 +311,6 @@ function wolfram2desmos(input) {
 				if (isOperator2(i)) {
 					i++;
 					bracket -= 1;
-					continue;
-				}
-				if (input[i] == "/") {
-					i++;
 					continue;
 				}
 				if (input[i] == " ") { // eg: "a/(a 2" → "a/(a) (2)"
@@ -651,6 +660,33 @@ function wolfram2desmos(input) {
 	replace(/Ｊ/g, "\\operatorname{round}");
 	replace(/Ｋ/g, "\\operatorname{gcf}");
 	replace(/Ｌ/g, "\\operatorname{lcm}");
+	replace(/Ｍ(?!\^\{)/g, "\\frac{d}{dx}");
+	while (find(/Ｍ/) != -1) {
+		startingIndex = find(/Ｍ/);
+		i = startingIndex + 2;
+		bracket = -1
+		while (i < input.length) {
+			i++;
+			bracketEvalFinal();
+			if (bracket == 0) {
+				selection = input.slice(startingIndex + 3, i);
+				input = input.slice(0, startingIndex + 1) + input.slice(i + 1, input.length);
+				break;
+			}
+		}
+		if (selection.search(/[^\d]*/g) != -1) {
+			selection = parseInt(selection);
+			if (selection <= derivativeLoopLimit) {
+				replace(/Ｍ/, "");
+				for (i = 0; i < selection; i++) {
+					insert(startingIndex, "\\frac{d}{dx}");
+				}
+				break;
+			}
+		}
+		replace(/Ｍ/, "\\frac{d^{" + selection + "}}{dx^{" + selection + "}}");
+		break;
+	}
 
 	// unused: ⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵
 
