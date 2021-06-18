@@ -114,7 +114,7 @@ function wolfram2desmos(input) {
 
 	// PREPARATIONS
 	// predefine some variables.
-	let i, bracket, startingIndex, selection, temp;
+	let i, bracket, startingIndex, selection, temp, isLogarithm;
 	let functionSymbols = /^[a-wΑ-ωⒶ-ⓏＡ-Ｚ⒜-⒵√%][\(\_\^]/gi;
 	input = " " + input + " "; // this gives some breathing space
 
