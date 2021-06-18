@@ -685,7 +685,6 @@ function wolfram2desmos(input) {
 			}
 		}
 		replace(/Ｍ/, "\\frac{d^{" + selection + "}}{dx^{" + selection + "}}");
-		break;
 	}
 
 	// unused: ⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵
