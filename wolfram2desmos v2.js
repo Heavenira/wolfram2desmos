@@ -3,8 +3,8 @@ let reciprocalExponents2Surds = false; //converts ^(1/#) to surd
 let derivativeLoopLimit = true; // converts (d^#/dx^#) to (d/dx)... # times, bottlenecked to 10 iterations
 
 // IMPORTANT
-// isIllegalASCIIMath() is REQUIRED BEFORE executing wolfram2desmos()
-// If isIllegalASCIIMath() = true, THEN DON'T RUN wolfram2desmos()
+// isLegalASCIIMath() is REQUIRED BEFORE executing wolfram2desmos()
+// If isLegalASCIIMath() = false, THEN DON'T RUN wolfram2desmos()
 // Ensure that JS DOESN'T override the clipboard
 // Besides that, this should work flawlessly! Enjoy!
 
@@ -20,27 +20,27 @@ function isIllegalASCIIMath(input) {
 
 	// checks for illegal characters
 	if (input.search(/\\/) != -1) {
-		return true;
+		return false;
 	}
 	if (input.search(/\n/) != -1) {
 		console.warn("Newline detected");
-		return true;
+		return false;
 	}
 
 	// determines if the brackets are correct
 	if (count(/\(/g) > count(/\)/g)) {
 		console.warn("Input has " + (count(/\(/g) - count(/\)/g)) + " more '(' characters than ')' characters");
-		return true;
+		return false;
 	}
 	if (count(/\(/g) < count(/\)/g)) {
 		console.warn("Input has " + (count(/\)/g) - count(/\(/g)) + " more ')' characters than '(' characters");
-		return true;
+		return false;
 	}
 	if (count(/\|/g) % 2 == 1) {
 		console.warn("Input has uneven '|' brackets");
-		return true;
+		return false;
 	}
-	return false;
+	return true;
 }
 
 
