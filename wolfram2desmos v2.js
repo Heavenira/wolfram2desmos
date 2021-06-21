@@ -613,7 +613,8 @@ function wolfram2desmos(input) {
 	// symbol replacements
 	replace(/√/g, "\\sqrt");
 	replace(/∛/g, "\\sqrt[3]");
-	replace(/\*/g, "\\cdot ")
+	replace(/\*/g, "\\cdot ");
+	replace(/\∞/g, "\\infty");
 	replace(/(?<=\d) (?=\d)/g, " \\cdot ");
 
 	// function replacements
