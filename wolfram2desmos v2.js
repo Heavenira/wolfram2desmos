@@ -8,7 +8,7 @@ let derivativeLoopLimit = true; // converts (d^#/dx^#) to (d/dx)... # times, bot
 // Ensure that JS DOESN'T override the clipboard
 // Besides that, this should work flawlessly! Enjoy!
 
-function isIllegalASCIIMath(input) {
+function isLegalASCIIMath(input) {
 	function count(expr) {
 		if (input.match(expr) != null) {
 			return input.match(expr).length;
@@ -20,6 +20,9 @@ function isIllegalASCIIMath(input) {
 
 	// checks for illegal characters
 	if (input.search(/\\/) != -1) {
+		return false;
+	}
+	if (input.search(/\/\//) != -1) {
 		return false;
 	}
 	if (input.search(/\n/) != -1) {
