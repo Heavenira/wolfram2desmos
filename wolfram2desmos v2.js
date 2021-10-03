@@ -39,6 +39,14 @@ function isLegalASCIIMath(input) {
 		console.warn("Input has " + (count(/\)/g) - count(/\(/g)) + " more ')' characters than '(' characters");
 		return false;
 	}
+	if (count(/\{/g) > count(/\}/g)) {
+		//console.warn("Input has " + (count(/\{/g) - count(/\}/g)) + " more '{' characters than '}' characters");
+		return false;
+	}
+	if (count(/\{/g) < count(/\}/g)) {
+		//console.warn("Input has " + (count(/\}/g) - count(/\{/g)) + " more '}' characters than '{' characters");
+		return false;
+	}
 	if (count(/\|/g) % 2 == 1) {
 		console.warn("Input has uneven '|' brackets");
 		return false;
@@ -93,21 +101,21 @@ function wolfram2desmos(input) {
 
 	// iterates the bracket parser with {} in mind
 	function bracketEvalFinal() {
-		if (input[i] == ")" || input[i] == "}") {
+		if (input[i] == ")" || input[i] == "}" || input[i] == "〕") {
 			bracket += 1;
 		}
-		else if (input[i] == "(" || input[i] == "{") {
+		else if (input[i] == "(" || input[i] == "{" || input[i] == "〔") {
 			bracket -= 1;
 		}
 	}
 
 	// checks if its an operator
 	function isOperator0(x) {
-		return ["+", "-", "±", "*", "=", "≥", "≤", "≠", "→", " "].includes(input[x]);
+		return ["+", "-", "±", "*", "=", ">", "<", "≥", "≤", "≠", "→", " ", "〔", "〕"].includes(input[x]);
 	}
 
 	function isOperator1(x) {
-		return ["+", "-", "±", "*", "=", "≥", "≤", "≠", "→", "/", "%"].includes(input[x]);
+		return ["+", "-", "±", "*", "=", ">", "<", "≥", "≤", "≠", "→", "/", "%", "〔", "〕"].includes(input[x]);
 	}
 
 	function isOperator2(x) {
@@ -136,6 +144,24 @@ function wolfram2desmos(input) {
 	replace(/\<\=/g, "≤");
 	replace(/\!\=/g, "≠");
 	replace(/\-\>/g, "→");
+
+	// EZRA ALL OF THIS IS NEW
+	
+	while (find(/(?<!_|\^|\\\w+|\S]|}){/) != -1) {
+		startingIndex = find(/(?<!_|\^|\\\w+|\S]|}){/);
+		i = startingIndex;
+		bracket = -1;
+		while (i < input.length) {
+			i++;
+			bracketEvalFinal();
+			if (bracket == 0) {
+				overwrite(startingIndex, "〔");
+				overwrite(i, "〕");
+				break;
+			}
+		}
+	}
+	console.log(input);
 
 	// function replacements
 	// ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ
@@ -611,6 +637,9 @@ function wolfram2desmos(input) {
 	replace(/\)/g,"\\right\)");
 	replace(/\«/g,"\\left\|");
 	replace(/\»/g,"\\right\|");
+	replace(/〔/g,"\\left\\{");
+	replace(/〕/g,"\\right\\}");
+
 
 	// symbol replacements
 	replace(/√/g, "\\sqrt");
