@@ -145,8 +145,7 @@ function wolfram2desmos(input) {
 	replace(/\!\=/g, "≠");
 	replace(/\-\>/g, "→");
 
-	// EZRA ALL OF THIS IS NEW
-	
+	// replace piecewise {} brackets with special character
 	while (find(/(?<!_|\^|\\\w+|\S]|}){/) != -1) {
 		startingIndex = find(/(?<!_|\^|\\\w+|\S]|}){/);
 		i = startingIndex;
@@ -161,7 +160,6 @@ function wolfram2desmos(input) {
 			}
 		}
 	}
-	console.log(input);
 
 	// function replacements
 	// ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ
@@ -220,7 +218,7 @@ function wolfram2desmos(input) {
 		bracket = -1;
 		while (i < input.length) {
 			i++;
-			bracketEval();
+			bracketEvalFinal();
 			if (bracket == -1 && input[i] == "|") {
 				overwrite(i, ")");
 				break;
@@ -547,8 +545,8 @@ function wolfram2desmos(input) {
 	// implement absolutes
 	replace(/(?<=Ｆ)\s*/g, "");
 	while (find(/Ｆ\(/) != -1) {
+		i = find(/Ｆ\(/);
 		replace(/Ｆ\(/, "«");
-		i = find(/«/);
 		bracket = -1;
 		while (i < input.length) {
 			i++;
