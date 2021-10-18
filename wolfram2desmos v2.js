@@ -111,11 +111,11 @@ function wolfram2desmos(input) {
 
 	// checks if its an operator
 	function isOperator0(x) {
-		return ["+", "-", "±", "*", "=", ">", "<", "≥", "≤", "≠", "→", " ", "〔", "〕"].includes(input[x]);
+		return ["+", "-", "±", "*", "=", ">", "<", "≥", "≤", "≠", "→", " ", "〔", "〕", ":"].includes(input[x]);
 	}
 
 	function isOperator1(x) {
-		return ["+", "-", "±", "*", "=", ">", "<", "≥", "≤", "≠", "→", "/", "%", "〔", "〕"].includes(input[x]);
+		return ["+", "-", "±", "*", "=", ">", "<", "≥", "≤", "≠", "→", "/", "%", "〔", "〕", ":"].includes(input[x]);
 	}
 
 	function isOperator2(x) {
@@ -340,7 +340,7 @@ function wolfram2desmos(input) {
 					bracket -= 1;
 					continue;
 				}
-				if (input[i] == " " || input[i] == ",") { // eg: "a/(a 2" → "a/(a) (2)"
+				if (input[i] == " " || input[i] == "," || input[i] == ":") { // eg: "a/(a 2" → "a/(a) (2)"
 					insert(i, ")");
 					break;
 				}
