@@ -13,3 +13,4 @@ let input = "2 (1 + (pi*2 mod 5 + 1)×4)";
 let input = "2 (1 + (1/x π mod 3 6 f(x) + 1)×4)"; // this one is really intellegent. try all sorts of mod() combinations
 let input = "B_n = ( sum_(k=1)^n sum_(j=1)^k ((-1)^j j^n binomial(1 + n, -j + k))/binomial(n, k))/(1 + n)"; // LOVE THIS ONE
 let input = "B_n = sum_(m=0)^n ((-1)^m sum_(i=0)^(-1 + m) (-1)^i (-i + m)^n binomial(m, i))/(1 + m) for (n element Z and n>=0)";
+let input = "8 cos^12(x) - 24 cos^10(x) + 36 cos^8(x) - 32 cos^6(x) + 18 cos^4(x) - 6 cos^2(x) + 1";
