@@ -47,6 +47,14 @@ function isLegalASCIIMath(input) {
 		//console.warn("Input has " + (count(/\}/g) - count(/\{/g)) + " more '}' characters than '{' characters");
 		return false;
 	}
+	if (count(/\[/g) > count(/\]/g)) {
+		//console.warn("Input has " + (count(/\[/g) - count(/\]/g)) + " more '[' characters than ']' characters");
+		return false;
+	}
+	if (count(/\[/g) < count(/\]/g)) {
+		//console.warn("Input has " + (count(/\]/g) - count(/\[/g)) + " more ']' characters than '[' characters");
+		return false;
+	}
 	if (count(/\|/g) % 2 == 1) {
 		console.warn("Input has uneven '|' brackets");
 		return false;
@@ -415,20 +423,20 @@ function wolfram2desmos(input) {
 			}
 		}
 		selection = input.slice(startingIndex, i + 1);
-		if (selection == "‹2›" || (selection == "‹-1›" && input[startingIndex - 2]	 != "Ⓩ")) {
+		if (selection == "‹2›" || (selection == "‹-1›" && input[startingIndex - 2] != "Ⓩ")) {
 			continue;
 		}
 		else {
 			input = input.slice(0, startingIndex - 1) + input.slice(i + 1, input.length);
 			i = startingIndex;
-			insert(i, "(");
+			insert(i - 2, "(");
 			bracket = -2;
 			while (i < input.length) {
 				i++;
 				bracketEval();
 				if (bracket == -1) {
-					insert(i, ")")
-					insert(i + 1, "^" + selection);
+					insert(i + 1, ")")
+					insert(i + 2, "^" + selection);
 					break;
 				}
 			}
@@ -637,7 +645,8 @@ function wolfram2desmos(input) {
 	replace(/\»/g,"\\right\|");
 	replace(/〔/g,"\\left\\{");
 	replace(/〕/g,"\\right\\}");
-
+	replace(/\[/g,"\\left[");
+	replace(/\]/g,"\\right]");
 
 	// symbol replacements
 	replace(/√/g, "\\sqrt");
