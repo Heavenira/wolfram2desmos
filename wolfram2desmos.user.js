@@ -101,7 +101,7 @@
 			if (input[index] == undefined) {
 				return true;
 			}
-			return !(/[A-Z|\d|Α-ω|ϕ|∞|√|א-ת|Ⓐ-Ⓩ|\.|'|_|\\]/gi).test(input[index]);
+			return !(/[A-Z\dΑ-ωϕ∞√א-תⒶ-Ⓩ\.'_\\]/gi).test(input[index]);
 		}
 	
 	
@@ -116,9 +116,9 @@
 		{
 		// symbolic replacements
 			replace(/\n/g, "");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])sqrt/g, "√");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])infinity|infty/g, "∞");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])pm/g, "±");
+			replace(/(?<![A-Za-zΑ-ωϕ])sqrt/g, "√");
+			replace(/(?<![A-Za-zΑ-ωϕ])infinity|infty/g, "∞");
+			replace(/(?<![A-Za-zΑ-ωϕ])pm/g, "±");
 			replace(/\>\=/g, "≥");
 			replace(/\<\=/g, "≤");
 			replace(/\!\=/g, "≠");
@@ -127,84 +127,84 @@
 			replace(/\s*(mod|\%)\s*/g, "mod");
 			replace(/\|/g, " | ");
 			replace(/\sfor(?!.*\sfor).*/g, "");
-			replace(/(\+|\-)\s*O\([A-Z|a-z|Α-ω|ϕ]\^\d*\)/g, "");
+			replace(/(\+|\-)\s*O\([A-Za-zΑ-ωϕ]\^\d*\)/g, "");
 			replace(/\(Taylor series\)/g, "");
 	
 			// misc function replacements
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arcsinh/g, "Ⓐ"); // https://qaz.wtf/u/convert.cgi?
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arccosh/g, "Ⓑ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arctanh/g, "Ⓒ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arccsch/g, "Ⓓ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arcsech/g, "Ⓔ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arccoth/g, "Ⓕ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])sinh/g, "Ⓖ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])cosh/g, "Ⓗ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])tanh/g, "Ⓘ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])csch/g, "Ⓙ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])sech/g, "Ⓚ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])coth/g, "Ⓛ");
+			replace(/(?<![A-Za-zΑ-ωϕ])arcsinh/g, "Ⓐ"); // https://qaz.wtf/u/convert.cgi?
+			replace(/(?<![A-Za-zΑ-ωϕ])arccosh/g, "Ⓑ");
+			replace(/(?<![A-Za-zΑ-ωϕ])arctanh/g, "Ⓒ");
+			replace(/(?<![A-Za-zΑ-ωϕ])arccsch/g, "Ⓓ");
+			replace(/(?<![A-Za-zΑ-ωϕ])arcsech/g, "Ⓔ");
+			replace(/(?<![A-Za-zΑ-ωϕ])arccoth/g, "Ⓕ");
+			replace(/(?<![A-Za-zΑ-ωϕ])sinh/g, "Ⓖ");
+			replace(/(?<![A-Za-zΑ-ωϕ])cosh/g, "Ⓗ");
+			replace(/(?<![A-Za-zΑ-ωϕ])tanh/g, "Ⓘ");
+			replace(/(?<![A-Za-zΑ-ωϕ])csch/g, "Ⓙ");
+			replace(/(?<![A-Za-zΑ-ωϕ])sech/g, "Ⓚ");
+			replace(/(?<![A-Za-zΑ-ωϕ])coth/g, "Ⓛ");
 	
 	
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])binomial/g, "א"); // hebrew will be my function placeholders
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])floor/g, "ב");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])ceiling/g, "ג");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])round/g, "ד");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])gcd|gcf/g, "ה");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])lcm/g, "ו");
+			replace(/(?<![A-Za-zΑ-ωϕ])binomial/g, "א"); // hebrew will be my function placeholders
+			replace(/(?<![A-Za-zΑ-ωϕ])floor/g, "ב");
+			replace(/(?<![A-Za-zΑ-ωϕ])ceiling/g, "ג");
+			replace(/(?<![A-Za-zΑ-ωϕ])round/g, "ד");
+			replace(/(?<![A-Za-zΑ-ωϕ])gcd|gcf/g, "ה");
+			replace(/(?<![A-Za-zΑ-ωϕ])lcm/g, "ו");
 			// "ז" is for mod final
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])abs/g, "ח");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arcsin/g, "ט");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arccos/g, "י");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arctan/g, "כ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arccsc/g, "ל");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arcsec/g, "מ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])arccot/g, "נ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])sin/g, "ס");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])cos/g, "ע");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])tan/g, "פ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])csc/g, "צ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])sec/g, "ק");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])cot/g, "ר");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])log|ln/g, "ת");
+			replace(/(?<![A-Za-zΑ-ωϕ])abs/g, "ח");
+			replace(/(?<![A-Za-zΑ-ωϕ])arcsin/g, "ט");
+			replace(/(?<![A-Za-zΑ-ωϕ])arccos/g, "י");
+			replace(/(?<![A-Za-zΑ-ωϕ])arctan/g, "כ");
+			replace(/(?<![A-Za-zΑ-ωϕ])arccsc/g, "ל");
+			replace(/(?<![A-Za-zΑ-ωϕ])arcsec/g, "מ");
+			replace(/(?<![A-Za-zΑ-ωϕ])arccot/g, "נ");
+			replace(/(?<![A-Za-zΑ-ωϕ])sin/g, "ס");
+			replace(/(?<![A-Za-zΑ-ωϕ])cos/g, "ע");
+			replace(/(?<![A-Za-zΑ-ωϕ])tan/g, "פ");
+			replace(/(?<![A-Za-zΑ-ωϕ])csc/g, "צ");
+			replace(/(?<![A-Za-zΑ-ωϕ])sec/g, "ק");
+			replace(/(?<![A-Za-zΑ-ωϕ])cot/g, "ר");
+			replace(/(?<![A-Za-zΑ-ωϕ])log|ln/g, "ת");
 	
 			// latin replacements
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])alpha/g, "α");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])beta/g, "β"); 
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Gamma/g, "Γ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])gamma/g, "γ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Delta/g, "Δ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])delta/g, "δ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])epsilon/g, "ε");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])zeta/g, "ζ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])eta/g, "η");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Theta/g, "Θ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])theta/g, "θ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])iota/g, "ι"); 
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])kappa/g, "κ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Lambda/g, "Λ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])lambda/g, "λ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])mu/g, "μ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])nu/g, "ν");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Xi/g, "Ξ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])xi/g, "ξ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Pi/g, "Π");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])pi/g, "π");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])rho/g, "ρ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Sigma/g, "Σ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])sigma/g, "σ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])tau/g, "τ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Upsilon/g, "Τ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])upsilon/g, "υ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Phi/g, "Φ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])phi/g, "φ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])chi/g, "χ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Psi/g, "Ψ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])psi/g, "ψ");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])Omega/g, "Ω");
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])omega/g, "ω");
+			replace(/(?<![A-Za-zΑ-ωϕ])alpha/g, "α");
+			replace(/(?<![A-Za-zΑ-ωϕ])beta/g, "β"); 
+			replace(/(?<![A-Za-zΑ-ωϕ])Gamma/g, "Γ");
+			replace(/(?<![A-Za-zΑ-ωϕ])gamma/g, "γ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Delta/g, "Δ");
+			replace(/(?<![A-Za-zΑ-ωϕ])delta/g, "δ");
+			replace(/(?<![A-Za-zΑ-ωϕ])epsilon/g, "ε");
+			replace(/(?<![A-Za-zΑ-ωϕ])zeta/g, "ζ");
+			replace(/(?<![A-Za-zΑ-ωϕ])eta/g, "η");
+			replace(/(?<![A-Za-zΑ-ωϕ])Theta/g, "Θ");
+			replace(/(?<![A-Za-zΑ-ωϕ])theta/g, "θ");
+			replace(/(?<![A-Za-zΑ-ωϕ])iota/g, "ι"); 
+			replace(/(?<![A-Za-zΑ-ωϕ])kappa/g, "κ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Lambda/g, "Λ");
+			replace(/(?<![A-Za-zΑ-ωϕ])lambda/g, "λ");
+			replace(/(?<![A-Za-zΑ-ωϕ])mu/g, "μ");
+			replace(/(?<![A-Za-zΑ-ωϕ])nu/g, "ν");
+			replace(/(?<![A-Za-zΑ-ωϕ])Xi/g, "Ξ");
+			replace(/(?<![A-Za-zΑ-ωϕ])xi/g, "ξ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Pi/g, "Π");
+			replace(/(?<![A-Za-zΑ-ωϕ])pi/g, "π");
+			replace(/(?<![A-Za-zΑ-ωϕ])rho/g, "ρ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Sigma/g, "Σ");
+			replace(/(?<![A-Za-zΑ-ωϕ])sigma/g, "σ");
+			replace(/(?<![A-Za-zΑ-ωϕ])tau/g, "τ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Upsilon/g, "Τ");
+			replace(/(?<![A-Za-zΑ-ωϕ])upsilon/g, "υ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Phi/g, "Φ");
+			replace(/(?<![A-Za-zΑ-ωϕ])phi/g, "φ");
+			replace(/(?<![A-Za-zΑ-ωϕ])chi/g, "χ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Psi/g, "Ψ");
+			replace(/(?<![A-Za-zΑ-ωϕ])psi/g, "ψ");
+			replace(/(?<![A-Za-zΑ-ωϕ])Omega/g, "Ω");
+			replace(/(?<![A-Za-zΑ-ωϕ])omega/g, "ω");
 			replace(/ϕ/g, "φ");
 
-			replace(/(?<![A-Z|a-z|Α-ω|ϕ])constant/g, "C");
+			replace(/(?<![A-Za-zΑ-ωϕ])constant/g, "C");
 		}
 	
 		
@@ -269,7 +269,7 @@
 						i -= 2;
 						bracketEval1();
 						if (bracket == 0) {
-							if (input[i - 1].match(/[A-Z|Α-ω|ϕ|א-ת|Ⓐ-Ⓩ|√|]/gi) != null) {
+							if (input[i - 1].match(/[A-ZΑ-ωϕא-תⒶ-Ⓩ√]/gi) != null) {
 								insert(startingIndex - 1, ")");
 								insert(i - 1, "\\frac{");
 								startingIndex += 7;
@@ -304,7 +304,7 @@
 		
 				// reciprocal function scenario
 				// this happens when a function begins the denominator
-				let isFunction = (startingIndex == find(/\/((\-)|([A-Z|Α-ω|ϕ|א-ת|Ⓐ-Ⓩ|√|∞|\_])|(\-([A-Z|Α-ω|ϕ|א-ת|Ⓐ-Ⓩ|√|∞|\_])))(\(|\{)/gi));
+				let isFunction = (startingIndex == find(/\/((\-)|([A-ZΑ-ωϕא-תⒶ-Ⓩ√∞\_])|(\-([A-ZΑ-ωϕא-תⒶ-Ⓩ√∞\_])))(\(|\{)/gi));
 				if (isFunction) {
 					insert(i, "{(");
 					i += 3;
@@ -385,8 +385,8 @@
 		}
 
 		// implement summation and products
-		while (find(/(sum|prod(uct|))_\([A-Z|a-z|\d|Α-ω|∞|א-ת|Ⓐ-Ⓩ|\_|\\]+\s*=\s*[A-Z|a-z|\d|Α-ω|∞|א-ת|Ⓐ-Ⓩ|\_|\\]+\)/g) != -1) {
-			i = find(/(sum|prod(uct|))_\([A-Z|a-z|\d|Α-ω|∞|א-ת|\_|\\]+\s*=\s*[A-Z|a-z|\d|Α-ω|∞|א-ת|\_|\\]+\)/g) + 4;
+		while (find(/(sum|prod(uct|))_\([A-Za-z\dΑ-ω∞א-תⒶ-Ⓩ\_\\]+\s*=\s*[A-Za-z\dΑ-ω∞א-תⒶ-Ⓩ\_\\]+\)/g) != -1) {
+			i = find(/(sum|prod(uct|))_\([A-Za-z\dΑ-ω∞א-ת\_\\]+\s*=\s*[A-Za-z\dΑ-ω∞א-ת\_\\]+\)/g) + 4;
 			if (input[i] == "u") {
 				i += 4;
 			}
@@ -492,7 +492,7 @@
 					i = startingIndex + 3;
 		
 					// this happens when a function begins the modulus
-					let isFunction = (startingIndex == find(/mod((\-)|([A-Z|Α-ω|ϕ|א-ת|√|∞|\_])|(\-([A-Z|Α-ω|ϕ|א-ת|√|∞|\_])))(\(|\{)/gi));
+					let isFunction = (startingIndex == find(/mod((\-)|([A-ZΑ-ωϕא-ת√∞\_])|(\-([A-ZΑ-ωϕא-ת√∞\_])))(\(|\{)/gi));
 					if (isFunction) {
 						insert(i, "(");
 						i += 2;
@@ -577,8 +577,8 @@
 		}
 	
 		// correct "use parens" scenario
-		while(find(/[א-ת|Ⓐ-Ⓩ]\^\{/g) != -1) {
-			startingIndex = find(/[א-ת|Ⓐ-Ⓩ]\^\{/g);
+		while(find(/[א-תⒶ-Ⓩ]\^\{/g) != -1) {
+			startingIndex = find(/[א-תⒶ-Ⓩ]\^\{/g);
 			i = startingIndex  + 2;
 			bracket = -1;
 			while (i < input.length) {
@@ -587,12 +587,12 @@
 					let slicedPortion = input.slice(startingIndex + 2, i + 1);
 	
 					// if there is no "(" after the exponent || it's trig^{-1|2}, then drop this.
-					if (input[i + 1] != "(" || (input[startingIndex].match(/[ס-ר|Ⓖ-Ⓛ]/g) != null && (slicedPortion == "{-1}" || slicedPortion == "{2}"))) {
+					if (input[i + 1] != "(" || (input[startingIndex].match(/[ס-רⒼ-Ⓛ]/g) != null && (slicedPortion == "{-1}" || slicedPortion == "{2}"))) {
 						overwrite(startingIndex + 1, "↑");
 						i = input.length;
 					}
 					// if there is no "(" after the exponent || it's arctrig^{2}, then drop this.
-					else if (input[i + 1] != "(" || (input[startingIndex].match(/[ט-נ|Ⓐ-Ⓕ]/g) != null && slicedPortion == "{2}")) {
+					else if (input[i + 1] != "(" || (input[startingIndex].match(/[ט-נⒶ-Ⓕ]/g) != null && slicedPortion == "{2}")) {
 						overwrite(startingIndex + 1, "↑");
 						i = input.length;
 					}
@@ -654,7 +654,7 @@
 			replace(/√/g, "\\sqrt");
 			replace(/(\*)|((?<=\d)\s+(?=\d))/g, "\\times ");
 			replace(/≠/g, "\\ne");
-			replace(/∞[A-Z|a-z]/g, "\\infty");
+			replace(/∞[A-Za-z]/g, "\\infty");
 			replace(/∞/g, "\\infty");
 			replace(/±/g, "\\pm");
 			replace(/^\s/g, "");
